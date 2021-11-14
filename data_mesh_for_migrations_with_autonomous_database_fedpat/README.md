@@ -51,7 +51,7 @@ Los administradores, los ingenieros de datos, los desarrolladores de ETL y los o
 El siguiente diagrama ilustra esta arquitectura de referencia:
 
 <p align="center">
-    <img src="img/img-101.png" alt="Logo" width="600">
+    <img src="img/img-101.png" alt="Componentes" width="1000">
 </p>
 
 <!-- Parameters -->
