@@ -30,10 +30,10 @@
 
 DECLARE
     -- Parameter
-    par_data_layer          VARCHAR2(30)    := 'DATASET';
-    par_schema_name         VARCHAR2(30)    := 'OBI_UTILITY';
-    par_schema_password     VARCHAR2(15)    := 'zU4Z+*n{uI[x';
-    par_shema_drop          BOOLEAN         := TRUE;
+    par_data_layer          VARCHAR2(30)    := 'WORKFLOW';
+    par_schema_name         VARCHAR2(30)    := 'OBI_WORKFLOW';
+    par_schema_password     VARCHAR2(15)    := 'njPG[{B496U>';
+    par_shema_drop          BOOLEAN         := FALSE;
     -- Variables
     var_query               VARCHAR2(32767) := NULL;
 BEGIN

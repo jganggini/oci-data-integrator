@@ -56,8 +56,8 @@ END pck_contabilidad;
                                                                        'BI_READER.VAUX_ANEXO_COMISIONARIO',       --|
                                                                        'BI_READER.TMP_ANEXO_COMISIONARIO_GTT');   --|
         --[proceso] Anexo Comisionario------------------------------------------------------------------------------|
-        obi_staging.sp_anexo_comisionario_ins_tmp(p_fecha_desde => p_fecha_desde,                                 --|
-                                                  p_fecha_hasta => p_fecha_hasta);                                --|
+        --obi_staging.sp_anexo_comisionario_ins_tmp(p_fecha_desde => p_fecha_desde,                                 --|
+        --                                          p_fecha_hasta => p_fecha_hasta);                                --|
         --[Log] Fin de Operación------------------------------------------------------------------------------------|
         SELECT COUNT(1) INTO l_cant_registros FROM tmp_anexo_comisionario_gtt;                                    --|
         obi_staging.pck_bi_log_procesos.fin_operacion(l_id_proceso, l_id_subproceso,                              --|
@@ -102,7 +102,7 @@ END pck_contabilidad;
             ttac_mt_comision_normal,          ttac_mt_comision_cobranza,        ttac_mt_comision_fomento,         --|
             ttac_mt_comision_otras,           ttac_mt_comision_total,           ttac_mt_comision_total_pesos,     --|
             ttac_tasa_cambio                                                                                      --|
-        FROM tmp_anexo_comisionario_gtt;                                                                          --|
+        FROM obi.staging.tmp_anexo_comisionario_gtt;                                                                          --|
         --[Log] Fin de Operación------------------------------------------------------------------------------------|
         l_cant_registros := SQL%rowcount;                                                                         --|
         pck_bi_log_procesos.fin_operacion(l_id_proceso, l_id_subproceso, l_id_operacion, l_cant_registros);       --|
@@ -144,7 +144,7 @@ END pck_contabilidad;
                                                             l_esquema_origen||'.TMP_CON_ANEXO_COMISIONARIO_GTT',  --|
                                                             l_esquema_destino||'.BT_ANEXO_COMISIONARIO');         --|
         --[Proceso] Insertar Datos----------------------------------------------------------------------------------|
-        INSERT INTO bt_anexo_comisionario(                                                                        --|
+        INSERT INTO obi_data.bt_anexo_comisionario(                                                                        --|
             --------------------------------->--------------------------------->----------------------------------->|
             btac_id_anexo_comisionario,       btac_cd_compania,                 btac_am_comision,                 --|
             btac_fe_comision,                 btac_cd_tipo_anexo_com,           btac_nu_cuit,                     --|
