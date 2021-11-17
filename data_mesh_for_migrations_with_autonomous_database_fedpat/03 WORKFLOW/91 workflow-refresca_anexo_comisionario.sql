@@ -11,7 +11,7 @@ BEGIN
                                                                                                                     |
    --[proceso] Procesa Anexo Comisionario--------------------------------------------------------------------------*/
       pck_contabilidad.procesa_anexo_comisionario(p_fecha_desde => par_fecha_desde,                               --|
-                                                  p_fecha_hasta => trunc(sysdate));                              --|
+                                                  p_fecha_hasta => trunc(sysdate));                               --|
    --[fin] Step 01-------------------------------------------------------------------------------------------------*/
 END;
 /
