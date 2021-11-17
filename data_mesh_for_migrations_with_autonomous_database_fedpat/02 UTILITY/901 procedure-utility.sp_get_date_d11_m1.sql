@@ -1,7 +1,6 @@
 CREATE OR REPLACE PROCEDURE obi_utility.sp_get_date_d11_m1(
-  out_end_date       IN  DATE     DEFAULT SYSDATE,
-  out_start_date     OUT DATE,
-  out_end_date       OUT DATE)
+  par_current_date   IN  DATE     DEFAULT SYSDATE,
+  out_start_date     OUT DATE)
 AS
 BEGIN
   /*----------------------------------------------------------------------------------------------------------------.
@@ -20,11 +19,10 @@ BEGIN
   `-----------------------------------------------------------------------------------------------------------------|
                                                                                                                     |
   --Inicio del Proceso---------------------------------------------------------------------------------------------*/
-  out_end_date := out_start_date;                                                                                 --|
-  IF trunc(out_end_date) < trunc(out_end_date, 'MM') + 10 THEN                                                    --|
-    out_start_date := add_months(trunc(out_end_date, 'MM'), -1);                                                  --|
+  IF trunc(par_current_date) < trunc(par_current_date, 'MM') + 10 THEN                                                    --|
+    out_start_date := add_months(trunc(par_current_date, 'MM'), -1);                                                  --|
   ELSE                                                                                                            --|
-    out_start_date := trunc(out_end_date, 'MM');                                                                  --|
+    out_start_date := trunc(par_current_date, 'MM');                                                                  --|
   END IF;                                                                                                         --|
   --[fin] Step 01--------------------------------------------------------------------------------------------------*/
 END;
