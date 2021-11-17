@@ -19,10 +19,10 @@ BEGIN
   `-----------------------------------------------------------------------------------------------------------------|
                                                                                                                     |
   --Inicio del Proceso---------------------------------------------------------------------------------------------*/
-  IF trunc(par_current_date) < trunc(par_current_date, 'MM') + 10 THEN                                                    --|
-    out_start_date := add_months(trunc(par_current_date, 'MM'), -1);                                                  --|
+  IF trunc(par_current_date) < trunc(par_current_date, 'MM') + 10 THEN                                            --|
+    out_start_date := add_months(trunc(par_current_date, 'MM'), -1);                                              --|
   ELSE                                                                                                            --|
-    out_start_date := trunc(par_current_date, 'MM');                                                                  --|
+    out_start_date := trunc(par_current_date, 'MM');                                                              --|
   END IF;                                                                                                         --|
   --[fin] Step 01--------------------------------------------------------------------------------------------------*/
 END;
