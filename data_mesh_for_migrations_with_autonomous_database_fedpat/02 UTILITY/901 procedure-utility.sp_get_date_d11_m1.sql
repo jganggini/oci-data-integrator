@@ -1,7 +1,7 @@
 CREATE OR REPLACE PROCEDURE obi_utility.sp_get_date_d11_m1(
-  par_current_date   IN  DATE     DEFAULT SYSDATE,
   out_start_date     OUT DATE)
 AS
+  var_current_date  DATE;
 BEGIN
   /*----------------------------------------------------------------------------------------------------------------.
   |                                    [UTILITY] DATA-LAYER                                                         |
@@ -19,10 +19,11 @@ BEGIN
   `-----------------------------------------------------------------------------------------------------------------|
                                                                                                                     |
   --Inicio del Proceso---------------------------------------------------------------------------------------------*/
-  IF trunc(par_current_date) < trunc(par_current_date, 'MM') + 10 THEN                                            --|
-    out_start_date := add_months(trunc(par_current_date, 'MM'), -1);                                              --|
+  var_current_date := trunc(sysdate);
+  IF trunc(var_current_date) < trunc(var_current_date, 'MM') + 10 THEN                                            --|
+    out_start_date := add_months(trunc(var_current_date, 'MM'), -1);                                              --|
   ELSE                                                                                                            --|
-    out_start_date := trunc(par_current_date, 'MM');                                                              --|
+    out_start_date := trunc(var_current_date, 'MM');                                                              --|
   END IF;                                                                                                         --|
   --[fin] Step 01--------------------------------------------------------------------------------------------------*/
 END;

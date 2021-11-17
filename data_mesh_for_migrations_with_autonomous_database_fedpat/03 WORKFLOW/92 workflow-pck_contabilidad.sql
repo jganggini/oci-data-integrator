@@ -12,15 +12,6 @@ END;
 CREATE OR REPLACE 
 PACKAGE BODY pck_contabilidad AS
     
-    --[log: variables]----------------------------------------------------------
-    l_nm_proceso         bi_log_procesos.nm_proceso%TYPE;                    --
-    l_id_proceso         bi_log_procesos.id_proceso%TYPE;                    --
-    l_id_subproceso      bi_log_procesos.id_subproceso%TYPE;                 --
-    l_id_operacion       bi_log_procesos.id_operacion%TYPE;                  --
-    l_nivel_proceso      BOOLEAN;                                            --
-    l_cant_registros     bi_log_procesos.cant_registros%TYPE;                --
-    l_msg                VARCHAR2(250);                                      --
-    l_error              VARCHAR2(3000);                                     --
     --[Schemas/Tables]: variables para definir esquemas y tablespaces----------
     l_esquema_origen     VARCHAR2(20);                                       --
     l_esquema_destino    VARCHAR2(20);                                       --
@@ -37,13 +28,7 @@ END pck_contabilidad;
     ) IS
         l_partition_date_list VARCHAR2(4000);
     BEGIN
-        l_cant_registros := NULL;
-    
-        --[log] Inicio Subproceso-----------------------------------------------------------------------------------.
-        l_id_subproceso := obi_staging.pck_bi_log_procesos.ini_subproceso(l_id_proceso, l_nm_proceso,             --|
-                                                                         'PROCESA_ANEXO_COMISIONARIO');           --|
-        -----------------------------------------------------------------------------------------------------------*/
-    
+
         /*----------------------------------------------------------------------------------------------------------.
         | STEP          : 01                                                                                        |
         | LAYER         : WORKFLOW                                                                                  |
@@ -51,13 +36,9 @@ END pck_contabilidad;
         | DESCRIPTION   : Vista Origen                                                                              |
         `-----------------------------------------------------------------------------------------------------------|
                                                                                                                   --|
-        --[Log] Inicio de Operación--------------------------------------------------------------------------------*/
-        l_id_operacion := obi_staging.pck_bi_log_procesos.ini_operacion(l_id_proceso, l_id_subproceso,            --|
-                                                                       'BI_READER.VAUX_ANEXO_COMISIONARIO',       --|
-                                                                       'BI_READER.TMP_ANEXO_COMISIONARIO_GTT');   --|
-        --[proceso] Anexo Comisionario------------------------------------------------------------------------------|
-        --obi_staging.sp_anexo_comisionario_ins_tmp(p_fecha_desde => p_fecha_desde,                                 --|
-        --                                          p_fecha_hasta => p_fecha_hasta);                                --|
+        --[proceso] Anexo Comisionario-----------------------------------------------------------------------------*/
+        --obi_staging.sp_anexo_comisionario_ins_tmp(p_fecha_desde => p_fecha_desde,                               --|
+        --                                          p_fecha_hasta => p_fecha_hasta);                              --|
         --[Log] Fin de Operación------------------------------------------------------------------------------------|
         SELECT COUNT(1) INTO l_cant_registros FROM tmp_anexo_comisionario_gtt;                                    --|
         obi_staging.pck_bi_log_procesos.fin_operacion(l_id_proceso, l_id_subproceso,                              --|
