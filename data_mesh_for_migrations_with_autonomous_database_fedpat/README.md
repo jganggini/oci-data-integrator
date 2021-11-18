@@ -57,7 +57,8 @@ El siguiente diagrama ilustra esta arquitectura de referencia:
 <!-- Parameters -->
 ## Parameters
 
-*   `data-layer.sql`: Parametros para la creación de Capas para el tratamiento de datos.
+*   `PASO 01` — [01-CORE/01-data-layer.sql](01-CORE/01-data-layer.sql) — Parametros para la creación de capas para el tratamiento de datos.
+
     ```sql
     DECLARE
       -- Parameter
@@ -68,7 +69,9 @@ El siguiente diagrama ilustra esta arquitectura de referencia:
       -- Variables
       var_query               VARCHAR2(32767) := NULL;
     BEGIN
-
+    ```
+    
+    ```sql
     DECLARE
       -- Parameter
       par_data_layer          VARCHAR2(30)    := 'UTILITY';
@@ -78,6 +81,82 @@ El siguiente diagrama ilustra esta arquitectura de referencia:
       -- Variables
       var_query               VARCHAR2(32767) := NULL;
     BEGIN
+    ```
+*   `PASO 02` — [01-CORE/02-dbms_cloud.sql](01-CORE/02-dbms_cloud.sql) — Credenciales para conectarnos a un Bucket en OCI desde Autnomous Database.
+    
+    ```sql
+    DECLARE
+      -- ParameterDATA-LAYER
+      par_data_layer          VARCHAR2(30)    := 'STAGING';
+      par_schema_name         VARCHAR2(30)    := 'OBI_STAGING';
+      -- Parameter: OCI >> Identity >> Users >> User Details >> Auth Tokens
+      par_credential_name     VARCHAR2(30)    := 'OBJ_STORE_CRED';
+      par_username            VARCHAR2(100)   := 'oracleidentitycloudservice/joel.ganggini@oracle.com';
+      par_password            VARCHAR2(100)   := 'a:sdMVACop{7oVd]JZM5';
+      par_drop_credential     BOOLEAN         := FALSE;
+      -- Variables
+      var_query               VARCHAR2(32767) := NULL;
+    BEGIN
+    ```
+    
+    ```sql
+    DECLARE
+      -- Parameter: DATA-LAYER
+      par_data_layer          VARCHAR2(30)    := 'DATASET';
+      par_schema_name         VARCHAR2(30)    := 'OBI_DATA';
+      -- Parameter: OCI >> Identity >> Users >> User Details >> Auth Tokens
+      par_credential_name     VARCHAR2(30)    := 'OBJ_STORE_CRED';
+      par_username            VARCHAR2(100)   := 'oracleidentitycloudservice/joel.ganggini@oracle.com';
+      par_password            VARCHAR2(100)   := 'a:sdMVACop{7oVd]JZM5';
+      par_drop_credential     BOOLEAN         := FALSE;
+      -- Variables
+      var_query               VARCHAR2(32767) := NULL;
+    BEGIN
+    ```
+
+*   `PASO 03` — Procedimiento y Funciones.
+
+    1. [obi_utility.sp_get_date.sql](02-UTILITY/900-procedure-utility.sp_get_date.sql) (New)
+
+    2. [obi_utility.sp_get_date_d11_m1.sql](02-UTILITY/901-procedure-utility.sp_get_date_d11_m1.sql) (New)
+    
+    3. [obi_utility.sp_set_partition.sql](02-UTILITY/902-procedure-utility.sp_set_partition.sql) (New)
+
+    4. [obi_utility.partition_date_row_type.sql](02-UTILITY/903-type-utility.partition_date_row_type.sql) (Old)
+    
+    5. [obi_utility.get_months_list_fn.sql](02-UTILITY/904-function-utility.get_months_list_fn.sql) (Old)
+
+    5. [obi_utility.get_partition_list_fn.sql](02-UTILITY/905-function-utility.get_partition_list_fn.sql) (Old)
+    
+    6. [obi_utility.drop_partition_sp.sql](02-UTILITY/906-procedure-utility.drop_partition_sp.sql) (Old)
+    
+    7. [obi_utility.truncate_partition_sp.sql](02-UTILITY/907-procedure-utility.truncate_partition_sp.sql) (Old)
+    
+    8. [obi_utility.purge_partitioned_tables_sp.sql](02-UTILITY/908-procedure-utility.purge_partitioned_tables_sp.sql) (Old)
+    
+    9. [obi_utility.purge_partitioned_tables_sp.sql](02-UTILITY/908-procedure-utility.purge_partitioned_tables_sp.sql) (Old)
+
+*   `PASO 04` — [02-UTILITY/999-grant-utility-to-obi-workflow.sql](02-UTILITY/999-grant-utility-to-obi-workflow.sql) — Permisos para ejecutar utilitarios desde `obi_workflow` y permisos para Data Loader de OCI-DI.
+    ```sql
+    --New
+    GRANT EXECUTE ON obi_utility.sp_get_date                 TO obi_workflow;
+    GRANT EXECUTE ON obi_utility.sp_get_date_d11_m1          TO obi_workflow;
+    GRANT EXECUTE ON obi_utility.sp_set_partition            TO obi_workflow;
+    --Old
+    GRANT EXECUTE ON obi_utility.get_months_list_fn          TO obi_workflow;
+    GRANT EXECUTE ON obi_utility.get_partition_list_fn       TO obi_workflow;
+    GRANT EXECUTE ON obi_utility.drop_partition_sp           TO obi_workflow;
+    GRANT EXECUTE ON obi_utility.truncate_partition_sp       TO obi_workflow;
+    GRANT EXECUTE ON obi_utility.purge_partitioned_tables_sp TO obi_workflow;
+
+    --obi_utility.get_partition_list_fn (TABLE: user_tab_partitions)
+    GRANT SELECT ANY TABLE                                   TO obi_utility;
+    --or
+    GRANT SELECT ON user_tab_partitions                      TO obi_utility;
+
+    --PLS-00904: insufficient privilege to access object C##CLOUD$SERVICE.DBMS_CLOUD for Data Loader
+    GRANT EXECUTE ON DBMS_CLOUD                              TO obi_staging;
+    GRANT EXECUTE ON DBMS_CLOUD                              TO obi_data;
     ```
 
 *   `DATA FRAMEWORK`: Para mayor detalle

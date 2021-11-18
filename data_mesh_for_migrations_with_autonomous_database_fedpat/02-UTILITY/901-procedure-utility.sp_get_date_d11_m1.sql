@@ -8,7 +8,7 @@ BEGIN
   |-----------------------------------------------------------------------------------------------------------------|
   | PROJECT       : Contabilidad                                                                                    |
   | LAYER         : UTILITY                                                                                         |
-  | MODULE        : FUNCTION                                                                                        |
+  | MODULE        : PROCEDURE                                                                                       |
   | DESCRIPTION   : La fecha del proceso corresponde al mes vigente y el anterior, en caso de                       |
   |                 estar dentro de los primeros 10 dias del mes vigente, o el vigente si                           |
   |                 pasaron mas de 10 dias.                                                                         |
