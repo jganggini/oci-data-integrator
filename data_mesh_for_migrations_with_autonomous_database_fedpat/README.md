@@ -149,12 +149,9 @@ El siguiente diagrama ilustra esta arquitectura de referencia:
     GRANT EXECUTE ON obi_utility.truncate_partition_sp       TO obi_workflow;
     GRANT EXECUTE ON obi_utility.purge_partitioned_tables_sp TO obi_workflow;
 
-    --obi_utility.get_partition_list_fn (TABLE: user_tab_partitions)
-    GRANT SELECT ANY TABLE                                   TO obi_utility;
-    --or
-    GRANT SELECT ON user_tab_partitions                      TO obi_utility;
-
     --PLS-00904: insufficient privilege to access object C##CLOUD$SERVICE.DBMS_CLOUD for Data Loader
+    GRANT dwrole                                             TO obi_staging;
+    GRANT dwrole                                             TO obi_data;
     GRANT EXECUTE ON DBMS_CLOUD                              TO obi_staging;
     GRANT EXECUTE ON DBMS_CLOUD                              TO obi_data;
     ```
