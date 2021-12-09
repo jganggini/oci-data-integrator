@@ -2,6 +2,9 @@
 GRANT EXECUTE ON obi_utility.sp_get_date                 TO obi_workflow;
 GRANT EXECUTE ON obi_utility.sp_get_date_d11_m1          TO obi_workflow;
 GRANT EXECUTE ON obi_utility.sp_set_partition            TO obi_workflow;
+GRANT EXECUTE ON admin.drop_partition_sp                 TO obi_utility;
+GRANT EXECUTE ON admin.truncate_partition_sp             TO obi_utility;
+
 --Old
 GRANT EXECUTE ON obi_utility.get_months_list_fn          TO obi_workflow;
 GRANT EXECUTE ON obi_utility.get_partition_list_fn       TO obi_workflow;
