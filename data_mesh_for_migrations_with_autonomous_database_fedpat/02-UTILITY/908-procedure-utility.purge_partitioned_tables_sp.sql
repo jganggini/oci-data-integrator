@@ -10,11 +10,11 @@ CREATE OR REPLACE PROCEDURE obi_utility.purge_partitioned_tables_sp(p_table_name
         THEN
             IF p_drop_partition_flag = 'S'
             THEN
-                obi_utility.drop_partition_sp(p_table_name          => p_table_name,
+                admin.drop_partition_sp(p_table_name          => p_table_name,
                           p_partition_name      => v_partition_list,
                           p_update_indexes_flag => p_update_indexes_flag);
             ELSE
-                obi_utility.truncate_partition_sp(p_table_name          => p_table_name,
+                admin.truncate_partition_sp(p_table_name          => p_table_name,
                               p_partition_name      => v_partition_list,
                               p_update_indexes_flag => p_update_indexes_flag);
             
