@@ -33,7 +33,7 @@ CREATE OR REPLACE FUNCTION obi_utility.get_partition_list_fn (
                                                                                              || ''''), '//text()'), '''.*?''')), 'syyyy-mm-dd hh24:mi:ss'
                                                                                              ) high_value_in_date_format
                 FROM
-                    user_tab_partitions
+                    all_tab_partitions
                 WHERE
                     table_name = p_table_name
                     AND interval = 'YES'
