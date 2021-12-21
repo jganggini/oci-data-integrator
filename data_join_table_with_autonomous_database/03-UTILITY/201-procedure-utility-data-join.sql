@@ -37,7 +37,7 @@ BEGIN
       v_Query := REPLACE(v_Query, 'v_schema_name', record.par_value);                                            --|
                                                                                                                  --|
       --[02.3] Agregar UNION ALL a la consulta--------------------------------------------------------------------*/
-      v_Query := v_Query || 'UNION ALL ';                                                                        --|
+      v_Query := v_Query || ' UNION ALL ';                                                                       --|
                                                                                                                  --|
     END LOOP;                                                                                                    --|
                                                                                                                  --|
@@ -52,7 +52,7 @@ BEGIN
     END;                                                                                                         --|
                                                                                                                  --|
   --[04] Ejecutar consulta----------------------------------------------------------------------------------------*/
-    v_Query := 'CREATE TABLE MAP.'||p_Map_Name||' AS '||SUBSTR(v_Query, 1, LENGTH(v_Query) - 10);                --|
+    v_Query := 'CREATE TABLE MAP.'||p_Map_Name||' AS '||SUBSTR(v_Query, 1, LENGTH(v_Query) - 11);                --|
     EXECUTE IMMEDIATE v_Query;                                                                                   --|
     COMMIT;                                                                                                      --|
                                                                                                                  --|
