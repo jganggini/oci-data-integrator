@@ -169,7 +169,7 @@ El siguiente diagrama ilustra el pipeline en OCI Data Integrator:
     2. CREATE_TABLE: Crear tabla.
     3. INSERT_TABLE: Insertar datos de prueba.
 
-*   `PASO 04` — [03-UTILITY/101-table-utility-parameter.sql](02-UTILITY/101 table-utility-parameter.sql) — Datos de de prueba generado por intervalos.
+*   `PASO 04` — [03-UTILITY/101-table-utility-parameter.sql](03-UTILITY/101-table-utility-parameter.sql) — Datos de de prueba generado por intervalos.
 
     1. DROP_TABLE: Eliminar tabla si existe.
     2. DROP_SEQ: Eliminar sequiencia si existe.
@@ -178,9 +178,9 @@ El siguiente diagrama ilustra el pipeline en OCI Data Integrator:
     5. CREATE_TRIGGER: Crear trigger.
     6. INSERT_TABLE: Insertar Parametros.
 
-*   `PASO 05` — [03-UTILITY/102-procedure-utility-parameter.sql](02-UTILITY/102-procedure-utility-parameter.sql) — Remplazo de variables dentro de una consulta PL/SQL.
+*   `PASO 05` — [03-UTILITY/102-procedure-utility-parameter.sql](03-UTILITY/102-procedure-utility-parameter.sql) — Remplazo de variables dentro de una consulta PL/SQL.
 
-*   `PASO 06` — [03-UTILITY/201-procedure-utility-data-join.sql](02-UTILITY/201-procedure-utility-data-join.sql) — Union de tablas de forma dinamica con una misma estructura en diferentes esquemas.
+*   `PASO 06` — [03-UTILITY/201-procedure-utility-data-join.sql](03-UTILITY/201-procedure-utility-data-join.sql) — Union de tablas de forma dinamica con una misma estructura en diferentes esquemas.
 
 *   `DATA FRAMEWORK`: Para mayor detalle
 

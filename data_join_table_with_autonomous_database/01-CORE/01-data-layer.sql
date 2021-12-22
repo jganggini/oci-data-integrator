@@ -31,13 +31,13 @@
   `-------------------------------------------------------------------------------------------*/
 
 DECLARE
-    -- Parameter
-    par_data_layer          VARCHAR2(30)    := 'STAGING';
-    par_schema_name         VARCHAR2(30)    := 'STG3';
-    par_schema_password     VARCHAR2(15)    := 'fLkq,756z5{i3';
-    par_shema_drop          BOOLEAN         := FALSE;
-    -- Variables
-    var_query               VARCHAR2(32767) := NULL;
+  -- Parameter
+  par_data_layer          VARCHAR2(30)    := 'MAPPING';
+  par_schema_name         VARCHAR2(30)    := 'MAP';
+  par_schema_password     VARCHAR2(15)    := 'zU4Z+*n{uI[x';
+  par_shema_drop          BOOLEAN         := FALSE;
+  -- Variables
+  var_query               VARCHAR2(32767) := NULL;
 BEGIN
     -- [1] Drop User
     IF par_shema_drop THEN
@@ -57,11 +57,11 @@ BEGIN
     IF (par_data_layer = 'STAGING') THEN
         var_query := 'GRANT CREATE SESSION, ALTER SESSION, UNLIMITED TABLESPACE TO '||par_schema_name;
     ELSIF (par_data_layer = 'WORKFLOW') THEN
-        var_query := 'GRANT CREATE SESSION, ALTER SESSION, CREATE VIEW, CREATE ANY PROCEDURE, SELECT ANY TABLE, INSERT ANY TABLE, UPDATE ANY TABLE, CREATE ANY TYPE, UNLIMITED TABLESPACE TO '||par_schema_name;
+        var_query := 'GRANT CREATE SESSION, ALTER SESSION, CREATE VIEW, CREATE ANY PROCEDURE, SELECT ANY TABLE, INSERT ANY TABLE, UPDATE ANY TABLE, CREATE ANY TYPE, DROP ANY TABLE, UNLIMITED TABLESPACE TO '||par_schema_name;
     ELSIF (par_data_layer = 'MAPPING') THEN
         var_query := 'GRANT CREATE SESSION, ALTER SESSION, UNLIMITED TABLESPACE TO '||par_schema_name;
     ELSIF (par_data_layer = 'UTILITY') THEN
-        var_query := 'GRANT CREATE SESSION, ALTER SESSION, UNLIMITED TABLESPACE TO '||par_schema_name;
+        var_query := 'GRANT CREATE SESSION, ALTER SESSION, SELECT ANY TABLE, CREATE ANY TABLE, DROP ANY TABLE, UNLIMITED TABLESPACE TO '||par_schema_name;
     ELSIF (par_data_layer = 'DATASET') THEN
         var_query := 'GRANT CREATE SESSION, ALTER SESSION, UNLIMITED TABLESPACE TO '||par_schema_name;
     END IF;

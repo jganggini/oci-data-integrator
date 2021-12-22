@@ -26,7 +26,7 @@ BEGIN
       v_count := v_count + 1;                                                                                    --|
                                                                                                                  --|
       --[02.1] Remplazar el parametro "p_rows" de la consulta-----------------------------------------------------*/
-      v_Query := q'[SELECT p_rows, "v_schema_name" AS schema_name FROM p_table_name_]';                          --|
+      v_Query := q'[SELECT p_rows, 'v_schema_name' AS schema_name FROM p_table_name_]';                          --|
       utl.sp_set_parameter(p_Wkf_Name,v_Query,v_Query);                                                          --|
                                                                                                                  --|
       --[02.2] Remplazar el parametro "p_schema_#" de la consulta-------------------------------------------------*/
@@ -37,7 +37,7 @@ BEGIN
       v_Query := REPLACE(v_Query, 'v_schema_name', record.par_value);                                            --|
                                                                                                                  --|
       --[02.3] Agregar UNION ALL a la consulta--------------------------------------------------------------------*/
-      v_Query := v_Query || ' UNION ALL ';                                                                       --|
+      v_Query_All := v_Query_All || v_Query || ' UNION ALL ';                                                    --|
                                                                                                                  --|
     END LOOP;                                                                                                    --|
                                                                                                                  --|
@@ -52,8 +52,9 @@ BEGIN
     END;                                                                                                         --|
                                                                                                                  --|
   --[04] Ejecutar consulta----------------------------------------------------------------------------------------*/
-    v_Query := 'CREATE TABLE MAP.'||p_Map_Name||' AS '||SUBSTR(v_Query, 1, LENGTH(v_Query) - 11);                --|
-    EXECUTE IMMEDIATE v_Query;                                                                                   --|
+    v_Query_All := 'CREATE TABLE MAP.'||p_Map_Name||' AS '||SUBSTR(v_Query_All, 1, LENGTH(v_Query_All) - 11);    --|
+    DBMS_OUTPUT.PUT_LINE(v_Query_All);
+    EXECUTE IMMEDIATE v_Query_All;                                                                               --|
     COMMIT;                                                                                                      --|
                                                                                                                  --|
    --[fin]--------------------------------------------------------------------------------------------------------*/
